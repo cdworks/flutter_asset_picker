@@ -1,0 +1,28 @@
+PODS:
+  - asset_picker (0.0.1):
+    - Flutter
+  - Flutter (1.0.0)
+  - path_provider (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - asset_picker (from `.symlinks/plugins/asset_picker/ios`)
+  - Flutter (from `Flutter`)
+  - path_provider (from `.symlinks/plugins/path_provider/ios`)
+
+EXTERNAL SOURCES:
+  asset_picker:
+    :path: ".symlinks/plugins/asset_picker/ios"
+  Flutter:
+    :path: Flutter
+  path_provider:
+    :path: ".symlinks/plugins/path_provider/ios"
+
+SPEC CHECKSUMS:
+  asset_picker: 71740acab7d5669181d88ab2b58f6449918ff46f
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  path_provider: fb74bd0465e96b594bb3b5088ee4a4e7bb1f2a9d
+
+PODFILE CHECKSUM: 3dbe063e9c90a5d7c9e4e76e70a821b9e2c1d271
+
+COCOAPODS: 1.8.4
