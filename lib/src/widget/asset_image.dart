@@ -195,8 +195,6 @@ class AssetThumbImage extends StatefulWidget {
   /// This is the widget that will be displayed while the
   /// thumb is loading.
   final Widget spinner;
-  final int cacheWidth;
-  final int cacheHeight;
   final int index;
 
   const AssetThumbImage({
@@ -207,8 +205,6 @@ class AssetThumbImage extends StatefulWidget {
     this.index,
     this.quality = 80,
     this.spinner,
-    this.cacheWidth,
-    this.cacheHeight,
   }) : super(key: key);
 
   @override
@@ -290,28 +286,28 @@ class _AssetThumbImageState extends State<AssetThumbImage> {
         {
           children.add(Image.memory(_thumbData,width: width.toDouble(),
             height:
-            height.toDouble(),fit: BoxFit.cover,cacheWidth: widget
-                  .cacheWidth,cacheHeight: widget.cacheHeight,));
+            height.toDouble(),fit: BoxFit.cover));
         }
 
       return
 
         Stack(
           fit: StackFit.expand,
-          children: children,
+          children:children
 //          <Widget>[
-//
-//
-//
-////            _thumbData !=null ? Image.memory(_thumbData,width: width.toDouble(),
-////              height:
-////            height.toDouble(),fit: BoxFit.cover,) : Text('none!!'),
-//
-////            Image(image: _AssetThumbImage(widget.asset, width: width, height:
-////            height,
-////                quality: quality), fit: BoxFit.cover,),
-//
-//
+//            Center(
+//              child: Container(
+//                width: widget.width.toDouble(),
+//                height: widget.height.toDouble(),
+//                color: Color(0xFFF0F2F5),
+////          child: Text('my:${widget.index}',style: TextStyle(fontSize:
+////          15,color: Colors.yellow),),
+//              ),
+//            ),
+//            Offsetage,
+//            _thumbData !=null ? Image.memory(_thumbData,width: width.toDouble(),
+//              height:
+//            height.toDouble(),fit: BoxFit.cover,) : Container(),
 //          ]
 
         );

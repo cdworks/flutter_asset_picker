@@ -28,8 +28,8 @@ class PhotoPickerPageScaffold extends CupertinoPageScaffold with AssetRouteWidge
 
   final int type; //0 图片 1 视频 2 音频 -1 所有的
 
-
-
+  
+  
   ObstructingPreferredSizeWidget get navigationBar => CupertinoNavigationBar(
     middle: Text(this.assetCollection.name,style: TextStyle(color: barTitleColor),),
     trailing: CupertinoButton(child: Text('取消'), padding: EdgeInsets.zero,minSize: 30,onPressed: ()
@@ -203,8 +203,7 @@ class _PickerMainPage extends State<PickerMainPage>
                  ,
 
                  child: AssetThumbImage(asset: asset,width:
-                 picSizeWidth,height: picSizeHeight,cacheWidth: picSizeWidth,cacheHeight:
-                 picSizeHeight,index: index,)
+                 picSizeWidth,height: picSizeHeight,index: index,)
              )
                ,
 
@@ -216,17 +215,31 @@ class _PickerMainPage extends State<PickerMainPage>
                  child:
                      Material(
 
-                       color: Colors.transparent, child: CircleCheckBox
-                       (
+                       color: Colors.transparent, child:
+
+                     Stack(
+                       children: <Widget>[
+                         Container(
+                           margin: EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              color: Colors.black26,
+                              borderRadius: BorderRadius.all(Radius.circular
+                                (9)),
+                            ),
+
+                         )
+                         ,
+                         CircleCheckBox
+                           (
 //                       materialTapTargetSize:MaterialTapTargetSize.padded,
-                       activeColor: Colors.green,
-                       value: isSelect,
-                       onChanged: (state)
-                       {
-                         if(state == true)
+                           activeColor: Colors.green.withOpacity(0.8),
+                           value: isSelect,
+                           onChanged: (state)
                            {
-                             final int selCount = totalSelect();
-                             if(selCount >= widget.maxNumber)
+                             if(state == true)
+                             {
+                               final int selCount = totalSelect();
+                               if(selCount >= widget.maxNumber)
                                {
                                  String typeString = widget.type == 0 ? '照片':
                                  '视频';
@@ -234,13 +247,16 @@ class _PickerMainPage extends State<PickerMainPage>
                                      context,gravity: Toast.CENTER);
                                  return;
                                }
-                           }
+                             }
 
-                         setState(() {
-                           _assetList[index]['select'] = state;
-                         });
+                             setState(() {
+                               _assetList[index]['select'] = state;
+                             });
 
-                       },),)
+                           },),
+                       ],
+                     )
+                    ,)
 
                )
 
@@ -403,3 +419,4 @@ class _PickerMainPage extends State<PickerMainPage>
   }
 
 }
+
