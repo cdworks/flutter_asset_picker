@@ -461,7 +461,9 @@ class AssetCupertinoPageRoute<T> extends PageRoute<T> {
         AnimationStatus
         .forward)) {
       return CupertinoFullscreenDialogTransition(
-        animation: animation,
+        primaryRouteAnimation: animation,
+        secondaryRouteAnimation: secondaryAnimation,
+        linearTransition:true,
         child: child,
       );
     } else {

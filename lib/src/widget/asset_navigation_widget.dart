@@ -69,7 +69,6 @@ Future showAssetPickNavigationDialog<T>(
         },
         beginSlider: false,
         route: pageRoute,
-        settings: RouteSettings(isInitialRoute: false),
       )
       );
 }
@@ -214,7 +213,6 @@ class _NavigationMainPage extends State<NavigationMainPage> {
                   }
                   ,
                   route: widget.parentRoute,
-                  settings: RouteSettings(isInitialRoute: false),
                 )
 //                CupertinoPageRoute(builder: (context) {
 //              return
