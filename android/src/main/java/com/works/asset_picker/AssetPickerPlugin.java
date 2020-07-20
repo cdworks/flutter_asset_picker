@@ -927,6 +927,13 @@ public class AssetPickerPlugin implements MethodChannel.MethodCallHandler,
 
                 final String path = cursor.getString(pathCol);
 
+                String folderPath = new File(path).getParentFile().getAbsolutePath();
+                String albumName = getLastPathSegment(folderPath);
+                if(albumName.equals("picture"))
+                {
+                    continue;
+                }
+
                 int width = 0;
                 int height = 0;
 

@@ -457,13 +457,16 @@ class AssetCupertinoPageRoute<T> extends PageRoute<T> {
       Animation<double> secondaryAnimation,
       Widget child,
       ) {
+
+    final bool linearTransition = route.navigator == null ? true : isPopGestureInProgress(route);
+
     if (isCancel ||  (beginSlider == false && animation.status ==
         AnimationStatus
         .forward)) {
       return CupertinoFullscreenDialogTransition(
         primaryRouteAnimation: animation,
         secondaryRouteAnimation: secondaryAnimation,
-        linearTransition:true,
+        linearTransition:linearTransition,
         child: child,
       );
     } else {
@@ -475,7 +478,7 @@ class AssetCupertinoPageRoute<T> extends PageRoute<T> {
         //
         // In the middle of a back gesture drag, let the transition be linear to
         // match finger motions.
-        linearTransition: true,
+        linearTransition: linearTransition,
         child: _CupertinoBackGestureDetector<T>(
           enabledCallback: () => true,
           onStartPopGesture: () => _startPopGesture<T>(beginSlider ?
