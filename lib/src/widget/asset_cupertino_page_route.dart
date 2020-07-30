@@ -458,7 +458,7 @@ class AssetCupertinoPageRoute<T> extends PageRoute<T> {
       Widget child,
       ) {
 
-    final bool linearTransition = route.navigator == null ? true : isPopGestureInProgress(route);
+    final bool linearTransition =  route == null || route.navigator == null ? true : isPopGestureInProgress(route);
 
     if (isCancel ||  (beginSlider == false && animation.status ==
         AnimationStatus

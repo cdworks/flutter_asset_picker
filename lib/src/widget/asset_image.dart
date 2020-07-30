@@ -275,8 +275,8 @@ class _AssetThumbImageState extends State<AssetThumbImage> {
       List<Widget> children = [];
       children.add(Center(
         child: Container(
-          width: widget.width.toDouble(),
-          height: widget.height.toDouble(),
+          width: width.toDouble(),
+          height: height.toDouble(),
           color: Color(0xFFF0F2F5),
 //          child: Text('my:${widget.index}',style: TextStyle(fontSize:
 //          15,color: Colors.yellow),),
@@ -284,9 +284,9 @@ class _AssetThumbImageState extends State<AssetThumbImage> {
       ),);
       if(_thumbData != null)
         {
-          children.add(Image.memory(_thumbData,width: width.toDouble(),
-            height:
-            height.toDouble(),fit: BoxFit.cover));
+          children.add(
+              Image.memory(_thumbData,width: width.toDouble(),
+            height:height.toDouble(),fit: BoxFit.cover));
         }
 
       return

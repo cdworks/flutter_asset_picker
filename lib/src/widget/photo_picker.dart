@@ -1,4 +1,5 @@
 
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:asset_picker/asset_picker.dart';
@@ -179,7 +180,8 @@ class _PickerMainPage extends State<PickerMainPage>
     Asset asset = _assetList[index]['asset'];
     bool isSelect = _assetList[index]['select'];
 
-    int picSizeHeight = (picSizeWidth * asset.ration).toInt();
+    int picSizeHeight = (asset.originalWidth == null ? picSizeWidth : min(picSizeWidth, asset.originalWidth)  * asset.ration).toInt();
+
 //    final Widget assetThumb = AssetThumbImage(asset: asset,width:
 //    picSizeWidth,height: picSizeHeight,cacheWidth: picSizeWidth,cacheHeight:
 //    picSizeHeight,index: index,);

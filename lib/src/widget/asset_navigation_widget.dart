@@ -25,6 +25,35 @@ Future cleanAssetPickCache() async {
   }
 }
 
+Future<double> _getTotalSizeOfFilesInDir(final FileSystemEntity file) async {
+  if (file is File) {
+    int length = await file.length();
+    return double.parse(length.toString());
+  }
+  if (file is Directory) {
+    try {
+      final List<FileSystemEntity> children = file.listSync();
+      double total = 0;
+      if (children != null)
+        for (final FileSystemEntity child in children)
+          total += await _getTotalSizeOfFilesInDir(child);
+      return total;
+    } catch (e) {}
+  }
+  return 0;
+}
+
+Future<double> getAssetPickCacheSize() async
+{
+  double size = 0;
+  Directory dir = await getApplicationDocumentsDirectory();
+  Directory cachePath = Directory("${dir.path}/pickasset/imagecache/");
+  if (cachePath.existsSync()) {
+    size = await _getTotalSizeOfFilesInDir(cachePath);
+  }
+  return size;
+}
+
 Future showAssetPickNavigationDialog<T>(
     {@required BuildContext context,
     int maxNumber = 8,

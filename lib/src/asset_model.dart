@@ -7,6 +7,7 @@ import 'dart:ui';
 
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -160,7 +161,9 @@ class Asset {
 
 
 
+
     Uint8List assetData = await getFileBytes('${_identifier}_${width}_$height');
+
     if (assetData == null) {
       assetData = await AssetPicker.requestImageThumbnail(
           _identifier, width, height, quality);

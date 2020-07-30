@@ -1,3 +1,5 @@
+library flutter_asset_picker;
+
 
 export 'src/picker.dart';
 export 'src/asset_model.dart';

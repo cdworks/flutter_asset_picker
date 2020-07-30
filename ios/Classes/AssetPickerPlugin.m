@@ -187,66 +187,71 @@
 
     }
     else if ([@"getAssetsFromCatalog" isEqualToString:call.method]) {
-
-        NSDictionary* arguments = call.arguments;
-        NSInteger type = [[arguments valueForKeyPath:@"type"] integerValue];
-        NSString* identifier = [arguments valueForKeyPath:@"identifier"];
-
-        if (identifier.length) {
-
-            if ([identifier isEqualToString:@"all_identifier"]) {
-                PHFetchOptions *options = [[PHFetchOptions alloc] init];
-                options.predicate = [NSPredicate predicateWithFormat:@"mediaType == %d", type == 0 ? PHAssetMediaTypeImage : PHAssetMediaTypeVideo];
-
-                options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
-
-                PHFetchResult<PHAsset *>* assetsFetchResults = [PHAsset fetchAssetsWithOptions:options];
-                NSMutableArray* results = [NSMutableArray arrayWithCapacity:assetsFetchResults.count];
-                for (PHAsset * obj in assetsFetchResults) {
-                    [results addObject:@{@"identifier": obj.localIdentifier,
-                                         @"width": @(obj.pixelWidth),
-                                         @"height":@(obj.pixelHeight),
-//                                         @"name": obj.originalFilename
-                    }];
-                }
-                result(results);
-            }
-            else
+        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+            if(status == PHAuthorizationStatusAuthorized)
             {
-                PHFetchResult<PHAssetCollection *> * collections = [PHAssetCollection fetchAssetCollectionsWithLocalIdentifiers:@[identifier] options:nil];
+                NSDictionary* arguments = call.arguments;
+                        NSInteger type = [[arguments valueForKeyPath:@"type"] integerValue];
+                        NSString* identifier = [arguments valueForKeyPath:@"identifier"];
 
-                if (collections.count) {
+                        if (identifier.length) {
 
-                    PHFetchOptions *options = [[PHFetchOptions alloc] init];
-                    options.predicate = [NSPredicate predicateWithFormat:@"mediaType == %d", type == 0 ? PHAssetMediaTypeImage : PHAssetMediaTypeVideo];
+                            if ([identifier isEqualToString:@"all_identifier"]) {
+                                PHFetchOptions *options = [[PHFetchOptions alloc] init];
+                                options.predicate = [NSPredicate predicateWithFormat:@"mediaType == %d", type == 0 ? PHAssetMediaTypeImage : PHAssetMediaTypeVideo];
 
-                    options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
-                    PHFetchResult<PHAsset *>* assetsFetchResults = [PHAsset fetchAssetsInAssetCollection:collections.firstObject options:options];
+                                options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
 
-                    NSMutableArray* results = [NSMutableArray arrayWithCapacity:assetsFetchResults.count];
-                    for (PHAsset * obj in assetsFetchResults) {
-                        [results addObject:@{@"identifier": obj.localIdentifier,
-                                             @"width": @(obj.pixelWidth),
-                                             @"height":@(obj.pixelHeight),
-//                                             @"name": obj.originalFilename
-                        }];
-                    }
-                    result(results);
+                                PHFetchResult<PHAsset *>* assetsFetchResults = [PHAsset fetchAssetsWithOptions:options];
+                                NSMutableArray* results = [NSMutableArray arrayWithCapacity:assetsFetchResults.count];
+                                for (PHAsset * obj in assetsFetchResults) {
+                                    [results addObject:@{@"identifier": obj.localIdentifier,
+                                                         @"width": @(obj.pixelWidth),
+                                                         @"height":@(obj.pixelHeight),
+                //                                         @"name": obj.originalFilename
+                                    }];
+                                }
+                                result(results);
+                            }
+                            else
+                            {
+                                PHFetchResult<PHAssetCollection *> * collections = [PHAssetCollection fetchAssetCollectionsWithLocalIdentifiers:@[identifier] options:nil];
 
-                }
-                else
-                {
-                    result([FlutterError errorWithCode:@"-2" message:@"The PHFetchOptions does not exist" details:nil]);
-                }
+                                if (collections.count) {
 
+                                    PHFetchOptions *options = [[PHFetchOptions alloc] init];
+                                    options.predicate = [NSPredicate predicateWithFormat:@"mediaType == %d", type == 0 ? PHAssetMediaTypeImage : PHAssetMediaTypeVideo];
+
+                                    options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
+                                    PHFetchResult<PHAsset *>* assetsFetchResults = [PHAsset fetchAssetsInAssetCollection:collections.firstObject options:options];
+
+                                    NSMutableArray* results = [NSMutableArray arrayWithCapacity:assetsFetchResults.count];
+                                    for (PHAsset * obj in assetsFetchResults) {
+                                        [results addObject:@{@"identifier": obj.localIdentifier,
+                                                             @"width": @(obj.pixelWidth),
+                                                             @"height":@(obj.pixelHeight),
+                //                                             @"name": obj.originalFilename
+                                        }];
+                                    }
+                                    result(results);
+
+                                }
+                                else
+                                {
+                                    result([FlutterError errorWithCode:@"-2" message:@"The PHFetchOptions does not exist" details:nil]);
+                                }
+
+                            }
+
+
+                        }
+                        else
+                        {
+                            result([FlutterError errorWithCode:@"-1" message:@"identifier == null" details:nil]);
+                        }
             }
-
-
-        }
-        else
-        {
-            result([FlutterError errorWithCode:@"-1" message:@"identifier == null" details:nil]);
-        }
+        }];
+        
 
     }
     else if ([@"requestImageThumbnail" isEqualToString:call.method]) {
@@ -259,7 +264,7 @@
         if (identifier.length) {
             PHImageRequestOptions* options = [PHImageRequestOptions new];
             options.resizeMode = PHImageRequestOptionsResizeModeFast;
-            options.deliveryMode = PHImageRequestOptionsDeliveryModeFastFormat;
+            options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
             options.synchronous = YES;
             PHFetchResult<PHAsset *>* assets = [PHAsset fetchAssetsWithLocalIdentifiers:@[identifier] options:nil];
             if (assets.count) {
