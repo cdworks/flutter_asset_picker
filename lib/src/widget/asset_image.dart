@@ -1,15 +1,15 @@
 
 import 'dart:typed_data';
 import 'dart:ui';
-import 'dart:io';
+
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import 'dart:ui' as ui show Codec;
 
 import '../../asset_picker.dart';
+
 
 //class _AssetThumbImage extends ImageProvider<_AssetThumbImage> {
 //  /// Creates an object that decodes a [File] as an image.
@@ -226,7 +226,7 @@ class _AssetThumbImageState extends State<AssetThumbImage> {
           child: Container(
              width: widget.width.toDouble(),
             height: widget.height.toDouble(),
-            color: Color(0xFFF0F2F5),
+            color: CupertinoDynamicColor.withBrightness(color: Color(0xFFF0F2F5), darkColor: Color(0xFF0F0D0C)).resolveFrom(context) ,
           ),
         );
       }
@@ -277,7 +277,7 @@ class _AssetThumbImageState extends State<AssetThumbImage> {
         child: Container(
           width: width.toDouble(),
           height: height.toDouble(),
-          color: Color(0xFFF0F2F5),
+          color: CupertinoDynamicColor.withBrightness(color: Color(0xFFF0F2F5), darkColor: Color(0xFF0F0D0C)).resolveFrom(context),
 //          child: Text('my:${widget.index}',style: TextStyle(fontSize:
 //          15,color: Colors.yellow),),
         ),
@@ -285,7 +285,11 @@ class _AssetThumbImageState extends State<AssetThumbImage> {
       if(_thumbData != null)
         {
           children.add(
-              Image.memory(_thumbData,width: width.toDouble(),
+              Image.memory(
+                  _thumbData,
+                  color: CupertinoDynamicColor.withBrightness(color: const Color(0xFFFFFFFF), darkColor: Color(0xFFB0B0B0)).resolveFrom(context),
+                  colorBlendMode: BlendMode.modulate,
+                  width: width.toDouble(),
             height:height.toDouble(),fit: BoxFit.cover));
         }
 
@@ -466,6 +470,8 @@ class _AssetOriginalImageState extends State<AssetOriginalImage> {
 //      width: double.infinity,
 //      height: double.infinity,
       gaplessPlayback: true,
+        color: CupertinoDynamicColor.withBrightness(color: const Color(0xFFFFFFFF), darkColor: Color(0xFFB0B0B0)).resolveFrom(context),
+        colorBlendMode: BlendMode.modulate,
     );
   }
 }

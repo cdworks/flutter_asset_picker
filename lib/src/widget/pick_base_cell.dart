@@ -107,7 +107,14 @@ class _PickBaseCell extends State<PickBaseCell>
       onTap: widget.tapCallback,
       onLongPress: widget.longPressCallback,
       behavior: HitTestBehavior.opaque,
-      child: Container(color: widget.selected ? widget.selectedColor : isHiLight ? widget.highlightColor : widget.normalColor, child: widget.child),
+      child:Container(
+          color: widget.selected ?
+
+          CupertinoDynamicColor.withBrightness(color: widget.selectedColor, darkColor: Color(widget.selectedColor.value ^ 0x00FFFFFF)).resolveFrom(context)
+              : isHiLight ?
+          CupertinoDynamicColor.withBrightness(color: widget.highlightColor, darkColor: Color(widget.highlightColor.value ^ 0x00FFFFFF)).resolveFrom(context) :
+          CupertinoDynamicColor.withBrightness(color: widget.normalColor, darkColor: Color(widget.normalColor.value ^ 0x00FFFFFF)).resolveFrom(context),
+          child: widget.child),
     );
   }
 }

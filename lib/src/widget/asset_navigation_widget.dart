@@ -113,7 +113,7 @@ class AssetNavigationPageScaffold extends CupertinoPageScaffold {
   final int type; //0 图片 1 视频 2 音频 -1 所有的
 
   ObstructingPreferredSizeWidget get navigationBar => CupertinoNavigationBar(
-        middle:  Text('照片',style:TextStyle(color:barTitleColor)),
+        middle:  Text('照片'),
         automaticallyImplyLeading: false,
         trailing: CupertinoButton(
           child: Text('取消'),
@@ -217,7 +217,7 @@ class _NavigationMainPage extends State<NavigationMainPage> {
             : Icon(
                 Icons.insert_photo,
                 size: 66,
-                color: Colors.black12,
+                color: CupertinoColors.systemGrey4.resolveFrom(context),
               );
 
 //        print('last:${collection.lastAsset}');
@@ -225,7 +225,7 @@ class _NavigationMainPage extends State<NavigationMainPage> {
           title: collection.name,
           icon: iconWidget,
           count: collection.count,
-          tapCallback: () {
+          callback: () {
             Navigator.of(context).push(
                 AssetCupertinoPageRoute(
                   builder: (context1)
@@ -261,7 +261,7 @@ class _NavigationMainPage extends State<NavigationMainPage> {
       itemCount: _collectionList.length,
       separatorBuilder: (BuildContext context, int index) {
         return Divider(
-          color: Color(0xFFE5E5E5),
+          color: CupertinoDynamicColor.withBrightness(color: Color(0xFFFFE5E5E5), darkColor: Color(0xFFE5E5E5^ 0x00FFFFFF)).resolveFrom(context),
           height: 0.5,
           thickness: 0.5,
         );

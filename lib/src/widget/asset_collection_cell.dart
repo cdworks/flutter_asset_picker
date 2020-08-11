@@ -9,14 +9,15 @@ import 'package:flutter/material.dart';
 
 import 'cell_event.dart';
 
-class AssetCollectionCell extends CellEvent {
+class AssetCollectionCell extends StatelessWidget {
 
   final String title;
   final int count;
   final Widget icon;
+  final GestureTapCallback callback;
 
   const AssetCollectionCell({this.title = '', this.icon, this.count = 0,
-    GestureTapCallback tapCallback}) :super(tapCallback: tapCallback);
+    this.callback}) ;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class AssetCollectionCell extends CellEvent {
         children: <Widget>[
           SizedBox(width: 66, height: 66, child: icon),
           Padding(padding: EdgeInsets.only(left: 12)),
-          Text(title, style: TextStyle(fontSize: 17)),
+          Text(title, style: TextStyle(fontSize: 17,color: CupertinoDynamicColor.withBrightness(color: CupertinoColors.black, darkColor: Color(0xFF333333 ^ 0x00FFFFFF)) .resolveFrom(context))),
           Padding(padding: EdgeInsets.only(left: 6)),
           Expanded(child:
           Text('($count)',
@@ -40,6 +41,6 @@ class AssetCollectionCell extends CellEvent {
         ],
       ),
     );
-    return PickBaseCell(child: child,tapCallback: tapCallback,);
+    return PickBaseCell(child: child,tapCallback: callback,);
   }
 }

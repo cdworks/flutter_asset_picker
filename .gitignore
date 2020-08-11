@@ -9,6 +9,9 @@
 .history
 .svn/
 
+lib/.DS_Store
+lib/src/.DS_Store
+
 # IntelliJ related
 *.iml
 *.ipr
@@ -70,4 +73,3 @@ build/
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
-lib/.DS_Store
