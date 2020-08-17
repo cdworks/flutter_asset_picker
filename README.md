@@ -18,8 +18,8 @@
     asset_picker:
     #本地路径
       path: /**/flutter_asset_picker
-	#或者git地址
-#	  git:
+#或者git地址
+#     git:
 #       url: git://github.com/cdworks/flutter_asset_picker.git
 ```
 
