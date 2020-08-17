@@ -287,7 +287,7 @@ class _AssetThumbImageState extends State<AssetThumbImage> {
           children.add(
               Image.memory(
                   _thumbData,
-                  color: CupertinoDynamicColor.withBrightness(color: const Color(0xFFFFFFFF), darkColor: Color(0xFFB0B0B0)).resolveFrom(context),
+                  color: kIsWeb ? null : CupertinoDynamicColor.withBrightness(color: const Color(0xFFFFFFFF), darkColor: Color(0xFFB0B0B0)).resolveFrom(context),
                   colorBlendMode: BlendMode.modulate,
                   width: width.toDouble(),
             height:height.toDouble(),fit: BoxFit.cover));
@@ -470,7 +470,7 @@ class _AssetOriginalImageState extends State<AssetOriginalImage> {
 //      width: double.infinity,
 //      height: double.infinity,
       gaplessPlayback: true,
-        color: CupertinoDynamicColor.withBrightness(color: const Color(0xFFFFFFFF), darkColor: Color(0xFFB0B0B0)).resolveFrom(context),
+        color: kIsWeb ? null : CupertinoDynamicColor.withBrightness(color: const Color(0xFFFFFFFF), darkColor: Color(0xFFB0B0B0)).resolveFrom(context),
         colorBlendMode: BlendMode.modulate,
     );
   }
