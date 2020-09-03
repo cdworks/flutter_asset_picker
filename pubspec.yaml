@@ -11,7 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
   photo_view:
-    path: /Users/liping/works_github/works_photo_view
+#    path: /Users/liping/works_github/works_photo_view
+    git: git://github.com/cdworks/works_photo_view.git
   path_provider: ^1.6.7
   crypto: ^2.1.3
   toast: ^0.1.5
